@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - uses: actions/checkout@v4
@@ -38,12 +38,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-app1:3.0.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-app1:4.0.0
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/python-app1:3.0.0'
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/python-app1:4.0.0'
           format: 'sarif'
           output: 'trivy-results.sarif'
 
@@ -51,4 +51,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-app1:3.0.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-app1:4.0.0
